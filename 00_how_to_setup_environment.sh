@@ -15,10 +15,10 @@ installer -pkg node.pkg -target /
 npm install -g yarn projen
 exit
 # install awscliv2
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
+curl -O https://awscli.amazonaws.com/AWSCLIV2.pkg
+installer -pkg AWSCLIV2.pkg -target /
 
+# add programs to path
 editor ~/.bash_profile
 JAVA_HOME="/Library/java/JavaVirtualMachines/amazon-corretto-15.jdk/Contents/Home"
 PYTHON="/Library/Frameworks/Python.framework/Versions/3.9/bin"
