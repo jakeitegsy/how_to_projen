@@ -14,6 +14,10 @@ curl https://nodejs.org/dist/v15.10.0/node-v15.10.0.pkg -o node.pkg
 installer -pkg node.pkg -target /
 npm install -g yarn projen
 exit
+# install awscliv2
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
 editor ~/.bash_profile
 JAVA_HOME="/Library/java/JavaVirtualMachines/amazon-corretto-15.jdk/Contents/Home"
