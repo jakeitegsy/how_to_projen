@@ -17,6 +17,9 @@ exit
 # install awscliv2
 curl -O https://awscli.amazonaws.com/AWSCLIV2.pkg
 installer -pkg AWSCLIV2.pkg -target /
+# install dotnet
+curl https://download.visualstudio.microsoft.com/download/pr/43e9caf4-2087-4bc6-8031-5efba1268703/a6b0491578d385a9780603ea51df8de9/dotnet-sdk-5.0.103-osx-x64.pkg -o dotnet.pkg
+installer -pkg dotnet.pkg -target /
 
 # add programs to path
 editor ~/.bash_profile
@@ -24,5 +27,7 @@ JAVA_HOME="/Library/java/JavaVirtualMachines/amazon-corretto-15.jdk/Contents/Hom
 PYTHON="/Library/Frameworks/Python.framework/Versions/3.9/bin"
 VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 MAVEN="/Library/java/maven/bin"
-PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PYTHON:$JAVA_HOME/bin:$MAVEN:$VSCODE"
+SUBLIME="/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+DOTNET="/usr/local/share/dotnet/"
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PYTHON:$JAVA_HOME/bin:$MAVEN:$VSCODE:$SUBLIME:$DOTNET:"
 export PATH
