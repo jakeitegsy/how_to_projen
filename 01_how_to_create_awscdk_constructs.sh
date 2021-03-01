@@ -36,11 +36,6 @@ const project = new AwsCdkConstructLibrary({
   cdkDependencies: ['@aws-cdk/core', '@aws-cdk/aws-lambda'],
   docgen: true,
   eslint: true,
-  publishToMaven: {
-    mavenGroupId: 'com.$UserName.examples',
-    mavenArtifactId: '$ProjectName',
-    javaPackage: 'com.$UserName.examples.$ProjectName.test'
-  },
   publishToNuget: {
     dotNetNamespace: '$UserName.examples',
     packageId: '$ProjectName.Test'
@@ -72,6 +67,7 @@ const project = new AwsCdkConstructLibrary({
 project.synth()
 EOF
 cat $filename
+git add .
 git commit -am "Setup Projen options"
 continue_prompt
 npx projen
@@ -95,11 +91,12 @@ export class InlineLambdaConstruct extends Construct {
 }
 EOF
 cat $filename
+git add .
 git commit -am "Create Custom InlineLambdaConstruct"
 continue_prompt
 
+rm -rf "test/hello.test.ts"
 filename="test/index.test.ts"
-rm $filename
 cat << EOF > $filename
 import { countResources, expect as expectCDK } from '@aws-cdk/assert';
 import { App, Stack } from '@aws-cdk/core';
@@ -107,7 +104,7 @@ import { InlineLambdaConstruct } from '../src';
 
 test('Simple test', () => {
   const app = new App();
-  const stack = Stack(app, 'TestStack');
+  const stack = new Stack(app, 'TestStack');
 
   new InlineLambdaConstruct(stack, 'SimpleInlineLambdaConstruct');
 
@@ -118,10 +115,7 @@ cat $filename
 git add .
 git commit -am "Add test"
 continue_prompt
-
 npx projen build
 
-
-
-# git remote $ProjectName git@github.com:jakeitegsy/$ProjectName 
-# git push -u $ProjectName main
+git remote $ProjectName git@github.com:$UserName/$ProjectName 
+git push -u $ProjectName main
