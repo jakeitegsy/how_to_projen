@@ -2,13 +2,18 @@ function continue_prompt {
   read -p "press ENTER to continue..."
 }
 
-ProjectName="ProjectName"
+ProjectName="UniqueProjectName"
 UserName=$(git config --get user.name)
 Email=$(git config --get user.email)
 
+# Make sure you Initialize Repository on GitHub with $ProjectName and README.md
 mkdir $ProjectName
 cd $ProjectName
 git init
+git remote add origin git@github.com:$UserName/$ProjectName.git
+git pull origin main
+git branch -M main
+
 npx projen new awscdk-construct
 git add .
 git commit -am "Initialize new AWSCDK-Construct"
@@ -40,7 +45,7 @@ const project = new AwsCdkConstructLibrary({
     dotNetNamespace: '$UserName.examples',
     packageId: '$ProjectName.Test'
   },
-  publishToPyPi: {
+  publishToPypi: {
     distName: '$ProjectName',
     module: '$ProjectName'
   },
@@ -115,7 +120,8 @@ cat $filename
 git add .
 git commit -am "Add test"
 continue_prompt
-npx projen build
+npm install @aws-cdk/aws-lambda @aws-cdk/core
+yarn run build
 
-git remote $ProjectName git@github.com:$UserName/$ProjectName 
-git push -u $ProjectName main
+git push -u origin main
+yarn release
